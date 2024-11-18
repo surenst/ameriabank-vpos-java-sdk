@@ -1,4 +1,4 @@
-package am.programming.response;
+package am.programming.models.response;
 
 public record ActivateBindingResponse(
         String responseCode,

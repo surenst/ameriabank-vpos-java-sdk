@@ -1,6 +1,6 @@
-package am.programming.response;
+package am.programming.models.response;
 
-public record ConfirmPaymentResponse(
+public record RefundPaymentResponse(
         String responseCode,
         String responseMessage,
         String opaque

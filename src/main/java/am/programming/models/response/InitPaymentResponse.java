@@ -1,7 +1,7 @@
-package am.programming.response;
+package am.programming.models.response;
 
 public record InitPaymentResponse(
         String paymentId,
-        int responseCode,
+        String responseCode,
         String responseMessage
 ) {}
