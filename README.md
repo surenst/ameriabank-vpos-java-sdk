@@ -49,9 +49,19 @@ To start using the SDK, configure your credentials in `SdkConfig.java`:
 ```java
 SdkConfig config = SdkConfig.builder()
         .baseUrl("https://api.ameriabank.am")
+        .initPaymentPath("/InitPayment")
+        .paymentDetailsPath("/PaymentDetails")
+        .confirmPaymentPath("/ConfirmPayment")
+        .cancelPaymentPath("/CancelPayment")
+        .refundPaymentPath("/RefundPayment")
+        .makeBindingPaymentPath("/MakeBindingPayment")
+        .getBindingsPath("/GetBindings")
+        .activateBindingPath("/ActivateBinding")
+        .deactivateBindingPath("/DeactivateBinding")
         .username("your-username")
         .password("your-password")
         .build();
+
 ```
 
 No further changes are needed; once configured, you can use the SDK in your application.
@@ -88,6 +98,33 @@ Below is a breakdown of how the classes interact:
 |              JsonUtil.java                     |
 +-----------------------------------------------+
 ```
+
+### Explanation of Dependencies
+
+#### `SdkConfig.java`
+- The core configuration class containing API credentials and endpoints.
+- Used by other classes to access configuration settings.
+
+#### `AmeriaBankClient.java`
+- The main client for interacting with the AmeriaBank API using configurations from `SdkConfig`.
+- Provides a foundation for both `PaymentService` and `BindingService`.
+
+#### `PaymentService.java`
+- Handles payment-related operations such as initializing, confirming, and refunding payments.
+- Depends on `AmeriaBankClient` and `HttpClientWrapper` for making API requests.
+
+#### `BindingService.java`
+- Manages card bindings including activation, deactivation, and binding payments.
+- Utilizes `AmeriaBankClient` and `HttpClientWrapper`.
+
+#### `HttpClientWrapper.java`
+- Handles HTTP requests and responses.
+- Used by both `PaymentService` and `BindingService`.
+
+#### `JsonUtil.java`
+- Utility class for JSON serialization and deserialization.
+- Used across the project for parsing API responses.
+
 
 ### Exception Handling
 - **Custom exceptions**: `FraudDetectionException`, `ParameterException`, and `AuthenticationException` are used for error handling.
