@@ -103,27 +103,30 @@ Below is a breakdown of how the classes interact:
 
 #### `SdkConfig.java`
 - The core configuration class containing API credentials and endpoints.
-- Used by other classes to access configuration settings.
+- Provides configuration settings used by other classes.
 
 #### `AmeriaBankClient.java`
 - The main client for interacting with the AmeriaBank API using configurations from `SdkConfig`.
-- Provides a foundation for both `PaymentService` and `BindingService`.
+- Handles all HTTP communication using `HttpClientWrapper`.
+- Uses `JsonUtil` for parsing JSON responses.
+- Provides methods used by both `PaymentService` and `BindingService`.
 
 #### `PaymentService.java`
 - Handles payment-related operations such as initializing, confirming, and refunding payments.
-- Depends on `AmeriaBankClient` and `HttpClientWrapper` for making API requests.
+- Relies on `AmeriaBankClient` for all interactions with the payment API.
 
 #### `BindingService.java`
-- Manages card bindings including activation, deactivation, and binding payments.
-- Utilizes `AmeriaBankClient` and `HttpClientWrapper`.
+- Manages card bindings, including activation, deactivation, and binding payments.
+- Utilizes `AmeriaBankClient` for API interactions.
 
 #### `HttpClientWrapper.java`
-- Handles HTTP requests and responses.
-- Used by both `PaymentService` and `BindingService`.
+- Handles low-level HTTP requests and responses.
+- Used exclusively by `AmeriaBankClient` to communicate with the API.
 
 #### `JsonUtil.java`
 - Utility class for JSON serialization and deserialization.
-- Used across the project for parsing API responses.
+- Used internally by `AmeriaBankClient` for parsing API responses.
+
 
 
 ### Exception Handling
